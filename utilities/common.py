@@ -20,7 +20,9 @@ def style_text(text, style):
         "italic": "\033[3m",
         "underline": "\033[4m",
         "strikethrough": "\033[9m",
-        "reset": "\033[0m"
+        "dim": "\033[2m",
+        "blinking": "\033[5m",
+        "reverse": "\033[7m"
     }
     return f"{styles.get(style, styles['reset'])}{text}{styles['reset']}"
 
