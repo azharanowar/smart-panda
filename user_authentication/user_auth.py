@@ -10,13 +10,26 @@ class UserAuth:
         self.session = self.load_session()
 
     # Register user
-    def register_user(self, username, full_name, email, phone, address, password):
+    def register_user(self):
+        common.clear_console()
+        common.print_main_header()  # Fixed main header for all the time
+        common.print_sub_header("New User Register")
+
+        # Collect user inputs
+        username = common.get_valid_username(self)
+        full_name = input("Enter your full name: ").strip()
+        email = common.get_valid_email(self)
+        phone = common.get_valid_phone(self)
+        address = input("Enter your address: ").strip()
+        password = input("Enter your password: ").strip()
+
+        # Check if username already exists
         if username in self.users:
-            return "Error: Username already exists."
-        
+            return common.color_text("Error: Username already exists.", "red")
+
         # Add user information to the dictionary
         self.users[username] = {
-            "username": username,  # Ensure username is the key
+            "username": username,
             "full_name": full_name,
             "email": email,
             "phone": phone,
@@ -25,8 +38,10 @@ class UserAuth:
             "role": "customer"  # Default role
         }
 
-        self.save_users()  # Save the updated user list
-        return f"User {username} registered successfully."
+        # Save users and return success message
+        self.save_users()
+        return common.color_text(f"User {username} registered successfully.", "green")
+
 
 
 

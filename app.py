@@ -1,7 +1,8 @@
 import utilities.common as common
 import user_authentication.user_auth as user_auth
 
-def show_logged_in_menu(auth):
+auth = user_auth.UserAuth()
+def show_logged_in_menu():
     """Show options based on user role."""
     common.clear_console()
 
@@ -20,7 +21,20 @@ def show_logged_in_menu(auth):
             print("3. Manage Users (Only Admin Access)")
             print("4. Logout")
 
-            choice = common.get_valid_number_input("Choose an option: ")
+            while True:
+                choice = common.get_valid_number_input("Choose an option: ")
+                if choice == 1:
+                    print("Managing Inventory...")
+                elif choice == 2:
+                    print("Managing Order...")
+                elif choice == 3:
+                    print("Managing Users...")
+                elif choice == 4:
+                    auth.logout_user()
+                    show_logged_in_menu()
+                else:
+                    print(common.color_text("Invalid input choice. Please enter 1, 2, 3, or 4 as valid menu number.", "red"))
+                    continue
         else:
             # Customer Dashboard
             common.print_sub_header("Customer Dashboard")
@@ -29,17 +43,42 @@ def show_logged_in_menu(auth):
             print("3. Update Order")
             print("4. Cancel Order")
             print("5. Logout")
+            while True:
+                choice = common.get_valid_number_input("Choose an option: ")
+                if choice == 1:
+                    print("New Order...")
+                elif choice == 2:
+                    print("View Orders...")
+                elif choice == 3:
+                    print("Update Order...")
+                elif choice == 4:
+                    print("Cancel Order...")
+                elif choice == 5:
+                    auth.logout_user()
+                    show_logged_in_menu()
+                else:
+                    print(common.color_text("Invalid input choice. Please enter 1, 2, 3, 4 or 5 as valid menu number.", "red"))
+                    continue
     else:
         # Non-logged-in options
         common.print_sub_header("User Authentication System")
         print("1. Register")
         print("2. Login")
-        print("3. Exit")
+        while True:
+                choice = common.get_valid_number_input("Choose an option: ")
+                if choice == 1:
+                    common.clear_console()
+                    common.loading_message_with_delay("Register form is loading, please wait", 'green', 2)
+                    auth.register_user()
+                elif choice == 2:
+                    print("Login...")
+                else:
+                    print(common.color_text("Invalid input choice. Please enter 1, 2, 3, 4 or 5 as valid menu number.", "red"))
+                    continue
 
 def main():
-    auth = user_auth.UserAuth()
-
-    while True:
+    show_logged_in_menu()  # Display role-based menu
+    while False:
         show_logged_in_menu(auth)  # Display role-based menu
         
         if auth.is_logged_in() and (auth.session["role"] == "admin" or auth.session["role"] == "manager" or auth.session["role"] == "staff"):
