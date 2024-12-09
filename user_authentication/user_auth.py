@@ -1,5 +1,6 @@
 import json
 import utilities.common as common
+import hashlib
 
 class UserAuth:
     def __init__(self, users_file="users.json", session_file="session.json"):
@@ -20,7 +21,7 @@ class UserAuth:
             "email": email,
             "phone": phone,
             "address": address,
-            "password": password,
+            "password": self.hash_password(password),  # Store hashed password
             "role": "customer"  # Default role
         }
 
@@ -38,7 +39,7 @@ class UserAuth:
             return common.color_text("Username not found. Enter correct your username!", color="red", style="bold")
 
         # Error message for incorrect password
-        if user["password"] != password:
+        if user["password"] != self.hash_password(password):
             return common.color_text("Incorrect password. Please enter your correct password!", color="red", style="bold")
 
         # Success message for login
@@ -115,3 +116,7 @@ class UserAuth:
         self.users[target_username]["role"] = new_role
         self.save_users()
         return f"Updated {target_username}'s role to {new_role}."
+    
+    # Helper function to hash a password
+    def hash_password(self, password):
+        return hashlib.sha256(password.encode()).hexdigest()

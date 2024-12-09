@@ -14,12 +14,13 @@ def show_logged_in_menu(auth):
         common.print_main_header()  # Fixed main header for all the time
         
         if auth.session["role"] == "admin" or auth.session["role"] == "manager" or auth.session["role"] == "staff":
-            # Manager/Staff Dashboard (same for both)
             common.print_sub_header(f"{auth.session['role'].capitalize()} Dashboard")
             print("1. Manage Inventory")
             print("2. Manage Orders")
             print("3. Manage Users (Only Admin Access)")
             print("4. Logout")
+
+            choice = common.get_valid_number_input("Choose an option: ")
         else:
             # Customer Dashboard
             common.print_sub_header("Customer Dashboard")
@@ -41,12 +42,15 @@ def main():
     while True:
         show_logged_in_menu(auth)  # Display role-based menu
         
-        if auth.is_logged_in():
+        if auth.is_logged_in() and (auth.session["role"] == "admin" or auth.session["role"] == "manager" or auth.session["role"] == "staff"):
             # Provide options for logged-in users
-            choice = common.get_valid_input("Choose an option: ", valid_options=["1", "2", "3"])
+            choice = common.get_valid_input("Choose an option: ", valid_options=["1", "2", "3", "4"])
+        elif auth.is_logged_in() and auth.session["role"] == "customer":
+            # Provide options for logged-in users
+            choice = common.get_valid_input("Choose an option: ", valid_options=["1", "2", "3", "4", "5"])
         else:
             # Provide options for non-logged-in users
-            choice = common.get_valid_input("Choose an option: ", valid_options=["1", "2", "3", "4"])
+            choice = common.get_valid_input("Choose an option: ", valid_options=["1", "2", "3"])
 
         if choice == "1":  # Register, Admin Dashboard, or View Reports/Tasks
             if not auth.is_logged_in():
