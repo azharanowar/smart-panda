@@ -166,6 +166,11 @@ def show_message_with_delay(message, color="white", delay=2):
     print(color_text(message, color))
     time.sleep(delay)
 
+def wait_for_keypress():
+    """Wait for the user to press Enter."""
+    input("\nPress Enter to continue...")
+
+
 # Get Valid Username
 def get_valid_username(auth):
     while True:

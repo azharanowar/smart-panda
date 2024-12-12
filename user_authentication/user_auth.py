@@ -40,15 +40,21 @@ class UserAuth:
 
         # Save users and return success message
         self.save_users()
-        return common.color_text(f"User {username} registered successfully.", "green")
+        return common.color_text(f"User {username.title()} registered successfully.", "green")
 
 
 
 
     # Login a user
-    def login_user(self, username, password):
+    def login_user(self):
+        common.clear_console()
+        common.print_main_header()  # Fixed main header for all the time
+        common.print_sub_header("User Login Form")
+
+        username = input("Username: ").strip()
+        password = input("Password: ").strip()
+
         user = self.users.get(username)
-        
         # Error message for username not found
         if not user:
             return common.color_text("Username not found. Enter correct your username!", color="red", style="bold")
@@ -62,7 +68,7 @@ class UserAuth:
         self.save_session()
         
         # Displaying a success message with green text and background
-        return common.color_text(f" Welcome back to the SmartPanda, {username}! ", color="green", style="bold", bg_color="blue")
+        return common.color_text(f" Welcome back {username.title()}! ", color="green", style="bold", bg_color="blue")
   
 
     # Load users from file
@@ -119,19 +125,131 @@ class UserAuth:
     def logout_user(self):
         self.session = {}
         self.save_session()
-        return "Logged out successfully."
+        return common.color_text(f"You have successfully logged out", "green")
+
+    
+    # Method to hash a password
+    def hash_password(self, password):
+        return hashlib.sha256(password.encode()).hexdigest()
+    
+    # View all users (Admin only)
+    def view_all_users(self):
+        common.clear_console()
+        common.print_main_header()  # Fixed main header for all the time
+        common.print_sub_header("View All Users")
+
+        if not self.has_role("admin"):
+            return common.color_text("Permission denied. Only admins can view all users.", color="red", style="bold")
+
+        if not self.users:
+            return common.color_text("No users found in the system.", color="yellow", style="italic")
+
+        username_width = 20
+        role_width = 20
+        email_width = 35
+
+        # Header with blue background
+        header = common.color_text(f"{' Username':<{username_width}}{'Role':<{role_width}}{'Email':<{email_width}}", bg_color="blue", style="bold")
+        
+        # Create separator line
+        separator = "-" * 75
+
+        # Format each user row to match the fixed column widths
+        rows = "\n".join(
+            f"{user['username']:<{username_width}}{user['role']:<{role_width}}{user['email']:<{email_width}}"
+            for user in self.users.values()
+        )
+
+        # Return the complete formatted string with sub-header as title
+        return f"{header}\n{separator}\n{rows}"
+    
+
+    # Search a user by username, email, phone or full name (Admin only)
+    def search_user(self):
+        user_search_key = input("Search by username, email, phone or full name: ")
+        common.clear_console()
+        common.print_main_header()
+        common.print_sub_header("Search Users")
+
+        if not self.has_role("admin"):
+            return common.color_text("Permission denied. Only admins can search for users.", color="red", style="bold")
+
+        results = [
+            user for user in self.users.values()
+            if user_search_key.lower() in user["username"].lower()
+            or user_search_key.lower() in user["email"].lower()
+            or user_search_key.lower() in user["full_name"].lower()
+            or user_search_key in user["phone"]
+        ]
+
+        if not results:
+            return common.color_text(f"No users found matching '{user_search_key}'.", color="yellow")
+
+        username_width = 20
+        role_width = 20
+        email_width = 35
+
+        # Header with blue background
+        header = common.color_text(f"{' Username':<{username_width}}{'Role':<{role_width}}{'Email':<{email_width}}", bg_color="blue", style="bold")
+        
+        # Create separator line
+        separator = "-" * 75
+
+        # Format each user row to match the fixed column widths
+        rows = "\n".join(
+            f"{user['username']:<{username_width}}{user['role']:<{role_width}}{user['email']:<{email_width}}"
+            for user in results
+        )
+
+        return f"{header}\n{separator}\n{rows}"
 
     # Update user role (Admin only)
     def update_role(self, admin_username, target_username, new_role):
+        common.clear_console()
+        common.print_main_header()
+        common.print_sub_header("Update User Role")
+
         if not self.has_role("admin") or self.session.get("username") != admin_username:
-            return "Permission denied. Only admins can update roles."
+            return common.color_text("Permission denied. Only admins can update roles.", color="red", style="bold")
+
         if target_username not in self.users:
-            return "Target user does not exist."
+            return common.color_text("Target user does not exist.", color="yellow")
 
         self.users[target_username]["role"] = new_role
         self.save_users()
-        return f"Updated {target_username}'s role to {new_role}."
-    
-    # Helper function to hash a password
-    def hash_password(self, password):
-        return hashlib.sha256(password.encode()).hexdigest()
+        return common.color_text(f"Updated {target_username}'s role to {new_role}.", color="green", style="bold")
+
+    # View all workers (Admin only)
+    def view_all_workers(self):
+        common.clear_console()
+        common.print_main_header()
+        common.print_sub_header("View All Workers")
+
+        if not self.has_role("admin"):
+            return common.color_text("Permission denied. Only admins can view workers.", color="red", style="bold")
+
+        workers = [
+            user for user in self.users.values() if user["role"] in ["manager", "staff"]
+        ]
+
+        if not workers:
+            return common.color_text("No workers (managers or staff) found in the system.", color="yellow", style="italic")
+
+        username_width = 20
+        full_name_width = 25
+        email_width = 35
+        role_width = 15
+
+        # Header with blue background
+        header = common.color_text(f"{' Username':<{username_width}}{'Full Name':<{full_name_width}}{'Email':<{email_width}}{'Role':<{role_width}}", bg_color="blue", style="bold")
+        
+        # Create separator line
+        separator = "-" * 75
+
+        # Format each user row to match the fixed column widths
+        rows = "\n".join(
+            f"{worker['username']:<{username_width}}{worker['full_name']:<{full_name_width}}{worker['email']:<{email_width}}{worker['role']:<{role_width}}"
+            for worker in workers
+        )
+
+        return f"{header}\n{separator}\n{rows}"
