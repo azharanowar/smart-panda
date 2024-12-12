@@ -8,15 +8,6 @@
         "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
         "role": "admin"
     },
-    "alrafi": {
-        "username": "alrafi",
-        "full_name": "Al-Rafi Azad",
-        "email": "al-rafi12@gmail.com",
-        "phone": "0101234567876",
-        "address": "Busan",
-        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-        "role": "customer"
-    },
     "sijan": {
         "username": "sijan",
         "full_name": "Sijan Khan",
@@ -24,6 +15,15 @@
         "phone": "010234324332",
         "address": "Busan",
         "password": "ca93da1ed8a6fbbd6c7fd57d4bbe0b032daaaa338ced168bbdbce602a4bab50a",
+        "role": "staff"
+    },
+    "alrafi": {
+        "username": "alrafi",
+        "full_name": "Al-Rafi Azad",
+        "email": "alraafi12@gmail.com",
+        "phone": "092134567543",
+        "address": "Busan",
+        "password": "673c3978d88952f632babc8837d2bad9558f4db1255cc1c07270c479cab79481",
         "role": "customer"
     }
 }

@@ -166,10 +166,10 @@ class UserAuth:
 
     # Search a user by username, email, phone or full name (Admin only)
     def search_user(self):
-        user_search_key = input("Search by username, email, phone or full name: ")
         common.clear_console()
         common.print_main_header()
         common.print_sub_header("Search Users")
+        user_search_key = input("Search by username, email, phone or full name: ")
 
         if not self.has_role("admin"):
             return common.color_text("Permission denied. Only admins can search for users.", color="red", style="bold")
@@ -202,22 +202,85 @@ class UserAuth:
         )
 
         return f"{header}\n{separator}\n{rows}"
+    
+    # Delete a user by username, email and phone (Admin only)
+    def delete_user(self):
+        common.clear_console()
+        common.print_main_header()
+        common.print_sub_header("Delete User")
+
+        if not self.has_role("admin"):
+            return common.color_text("Permission denied. Only admins can delete users.", color="red", style="bold")
+
+        # Call the search_user function to search for users by username, email, or phone
+        result = self.search_user()
+        if "No users found" in result or "Permission denied" in result:
+            return result  # If no users are found or permission is denied, return the message from search_user
+
+        # Display the search results to the admin
+        print(result)
+
+        # Ask the admin to enter the username of the user they want to delete
+        target_username = input("\nEnter the username of the user you want to delete: ")
+
+        # Check if the user exists in the search results (you can assume search_user already filters results)
+        user_to_delete = next((user for user in self.users.values() if user["username"] == target_username), None)
+
+        if not user_to_delete:
+            return common.color_text(f"User '{target_username}' not found.", color="yellow")
+
+        # Ask for confirmation before deletion
+        confirmation = input(f"Are you sure you want to delete the user '{target_username}'? (y/n): ").lower()
+
+        if confirmation != 'y':
+            return common.color_text("User deletion canceled.", color="yellow")
+
+        # Delete the user
+        del self.users[target_username]
+        self.save_users()
+
+        return common.color_text(f"User '{target_username}' has been deleted successfully.", color="green", style="bold")
+
+
 
     # Update user role (Admin only)
-    def update_role(self, admin_username, target_username, new_role):
+    def update_role(self):
         common.clear_console()
         common.print_main_header()
         common.print_sub_header("Update User Role")
 
-        if not self.has_role("admin") or self.session.get("username") != admin_username:
-            return common.color_text("Permission denied. Only admins can update roles.", color="red", style="bold")
+        target_username = input("Enter the username: ")
+        valid_roles = ["admin", "manager", "staff", "customer"]  # Define the valid roles
 
         if target_username not in self.users:
-            return common.color_text("Target user does not exist.", color="yellow")
+            return common.color_text(f"User '{target_username}' does not exist.", color="yellow")
 
-        self.users[target_username]["role"] = new_role
+        # Display available roles and ask for input
+        print("Available roles:")
+        print("1. admin")
+        print("2. manager")
+        print("3. staff")
+        print("4. customer")
+
+        role_choice = input("Enter the number of the role you want to select: ")
+
+        # Check if the input is valid
+        if role_choice == "1":
+            selected_role = "admin"
+        elif role_choice == "2":
+            selected_role = "manager"
+        elif role_choice == "3":
+            selected_role = "staff"
+        elif role_choice == "4":
+            selected_role = "customer"
+        else:
+            return common.color_text("Invalid choice. Please select a valid role number.", color="red", style="bold")
+
+        # Assign the selected role
+        self.users[target_username]["role"] = selected_role
         self.save_users()
-        return common.color_text(f"Updated {target_username}'s role to {new_role}.", color="green", style="bold")
+
+        return common.color_text(f"Updated {target_username}'s role to {selected_role}.", color="green", style="bold")
 
     # View all workers (Admin only)
     def view_all_workers(self):
