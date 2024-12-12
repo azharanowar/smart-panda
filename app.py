@@ -71,9 +71,11 @@ def show_logged_in_menu():
                     common.loading_message_with_delay("Register form is loading, please wait", 'green', 2)
                     auth.register_user()
                 elif choice == 2:
-                    print("Login...")
+                    common.clear_console()
+                    common.loading_message_with_delay("Login form is loading, please wait", 'green', 2)
+                    auth.login_user()
                 else:
-                    print(common.color_text("Invalid input choice. Please enter 1, 2, 3, 4 or 5 as valid menu number.", "red"))
+                    print(common.color_text("Invalid input choice. Please enter 1 or 2 as valid menu number.", "red"))
                     continue
 
 def main():
