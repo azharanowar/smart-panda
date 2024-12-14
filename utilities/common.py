@@ -134,7 +134,7 @@ def get_valid_number_input(prompt):
 
 # Formatting Numbers (Currency)
 def format_currency(amount):
-    return f"${amount:,.2f}"
+    return f"₩{amount:,.2f}"
 
 # Clear Console
 def clear_console():

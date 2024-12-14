@@ -4,7 +4,7 @@
         "full_name": "Md Anwar Hosen",
         "email": "azharanowar@gmail.com",
         "phone": "01051493665",
-        "address": "Seomyeon, Busan, South Korea",
+        "address": "Soemyeon, Busan, South Korea",
         "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
         "role": "admin"
     },
@@ -23,7 +23,7 @@
         "email": "alraafi12@gmail.com",
         "phone": "092134567543",
         "address": "Busan",
-        "password": "673c3978d88952f632babc8837d2bad9558f4db1255cc1c07270c479cab79481",
+        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
         "role": "customer"
     }
 }

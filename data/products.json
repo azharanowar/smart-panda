@@ -4,7 +4,7 @@
         "name": "BURGET",
         "price": 11.0,
         "quantity": 23,
-        "category": "asdsa",
+        "category": "Lunch",
         "extras": []
     },
     {
@@ -52,5 +52,18 @@
         "quantity": 32,
         "category": "Lunch",
         "extras": []
+    },
+    {
+        "id": 6,
+        "name": "Teokbokki",
+        "price": 100,
+        "quantity": 50,
+        "category": "Dinner",
+        "extras": [
+            {
+                "name": "rice",
+                "price": 10
+            }
+        ]
     }
 ]

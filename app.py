@@ -1,6 +1,7 @@
 import utilities.common as common
 import user_authentication.user_auth as user_auth
 import inventory_management.inventory as inventory_management
+import frontEnd.frontend as frontend_management
 
 auth = user_auth.UserAuth()
 def dashboard_menu():
@@ -85,7 +86,7 @@ def dashboard_menu():
                             continue
 
                 elif choice == 2:
-                    print("Managing Order...")
+                    print("Staff Order Management")
                 elif choice == 3:
                     if auth.session["role"] == "admin":
                         common.clear_console()
@@ -161,31 +162,47 @@ def dashboard_menu():
                     continue
         else:
             # Customer Dashboard
-            common.print_sub_header("Customer Dashboard")
-            print("1. New Order")
-            print("2. View Orders")
-            print("3. Update Order")
-            print("4. Cancel Order")
-            print("5. Logout")
+            common.clear_console()
+            common.print_main_header()  # Fixed main header
+            common.print_sub_header(f"Customer Dashboard")
+            frontend = frontend_management.Frontend()
             while True:
+                common.clear_console()
+                common.print_main_header()
+                common.print_sub_header("Order Management System")
+                print("1. New Order")
+                print("2. View All Orders")
+                print("3. Update Order")
+                print("4. Cancel Order")
+                print("5. Logout")
+                print("0. Back to Main Menu")
+
                 choice = common.get_valid_number_input("Choose an option: ")
                 if choice == 1:
-                    print("New Order...")
+                    frontend.new_order()
                 elif choice == 2:
-                    print("View Orders...")
+                    result = frontend.view_all_orders()
+                    print(result)
+                    common.wait_for_keypress()
                 elif choice == 3:
-                    print("Update Order...")
+                    result = frontend.update_order()
+                    print(result)
+                    common.wait_for_keypress()
                 elif choice == 4:
-                    print("Cancel Order...")
+                    result = frontend.cancel_order()
+                    print(result)
+                    common.wait_for_keypress()
                 elif choice == 5:
                     common.clear_console()
-                    common.loading_message_with_delay("Logging out is loading, please wait", "blue", 2)
+                    common.loading_message_with_delay("Logging out, please wait", "blue", 2)
                     common.clear_console()
                     result = auth.logout_user()
                     common.show_message_with_delay(result)
                     dashboard_menu()
+                elif choice == 0:
+                    dashboard_menu()
                 else:
-                    print(common.color_text("Invalid input choice. Please enter 1, 2, 3, 4 or 5 as valid menu number.", "red"))
+                    print(common.show_message_with_delay("Invalid input choice. Please enter valid menu number.", "red"))
                     continue
     else:
         # Non-logged-in options
