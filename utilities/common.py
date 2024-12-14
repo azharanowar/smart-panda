@@ -140,12 +140,6 @@ def format_currency(amount):
 def clear_console():
     os.system("cls" if os.name == "nt" else "clear")
 
-# Error Logging
-def log_error(message):
-    with open("error_log.txt", "a") as log_file:
-        log_file.write(f"{message}\n")
-    print(color_text("An error occurred. Check error_log.txt for details.", "red"))
-
 # Function for main header
 def print_main_header():
     

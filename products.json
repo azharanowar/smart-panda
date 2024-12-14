@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "name": "BURGET",
+        "price": 11.0,
+        "quantity": 23,
+        "category": "asdsa",
+        "extras": []
+    },
+    {
+        "id": 2,
+        "name": "312",
+        "price": 222,
+        "quantity": 22,
+        "category": "Lunch",
+        "extras": []
+    },
+    {
+        "id": 3,
+        "name": "asd",
+        "price": 23,
+        "quantity": 321,
+        "category": "Desserts",
+        "extras": [
+            {
+                "name": "Salad",
+                "price": 12
+            },
+            {
+                "name": "Tomato",
+                "price": 12
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Pizza",
+        "price": 100.0,
+        "quantity": 50,
+        "category": "Lunch",
+        "extras": [
+            {
+                "name": "aa",
+                "price": 33
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "ew",
+        "price": 32,
+        "quantity": 32,
+        "category": "Lunch",
+        "extras": []
+    }
+]

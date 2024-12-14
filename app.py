@@ -1,5 +1,6 @@
 import utilities.common as common
 import user_authentication.user_auth as user_auth
+import inventory_management.inventory as inventory_management
 
 auth = user_auth.UserAuth()
 def dashboard_menu():
@@ -24,7 +25,65 @@ def dashboard_menu():
             while True:
                 choice = common.get_valid_number_input("Choose an option: ")
                 if choice == 1:
-                    print("Managing Inventory...")
+                    inventory = inventory_management.Inventory()
+                    common.clear_console()
+                    common.loading_message_with_delay("Inventory management system is loading, please wait", 'green', 2)
+                    while True:
+                        common.clear_console()
+                        common.print_main_header()  # Fixed main header
+                        common.print_sub_header(f"Inventory Management System")
+                        print("1. Add Product")
+                        print("2. View All Products")
+                        print("3. Search Product")
+                        print("4. Update Product")
+                        print("5. Delete Product")
+                        print("6. Logout")
+                        print("0. Back to Main Menu")
+
+                        choice = common.get_valid_number_input("Choose an option: ")
+                        if choice == 1:
+                            common.clear_console()
+                            common.loading_message_with_delay("Adding product, please wait", 'green', 2)
+                            result = inventory.add_product()
+                            print(result)
+                            common.wait_for_keypress()
+                        elif choice == 2:
+                            common.clear_console()
+                            common.loading_message_with_delay("Viewing all products, please wait", 'green', 2)
+                            result = inventory.view_all_products()
+                            print(result)
+                            common.wait_for_keypress()
+                        elif choice == 3:
+                            common.clear_console()
+                            common.loading_message_with_delay("Searching product, please wait", 'green', 2)
+                            result = inventory.search_product()
+                            print(result)
+                            common.wait_for_keypress()
+                        elif choice == 4:
+                            common.clear_console()
+                            common.loading_message_with_delay("Updating product, please wait", 'green', 2)
+                            result = inventory.update_product()
+                            print(result)
+                            common.wait_for_keypress()
+                        elif choice == 5:
+                            common.clear_console()
+                            common.loading_message_with_delay("Deleting product, please wait", 'green', 2)
+                            result = inventory.delete_product()
+                            print(result)
+                            common.wait_for_keypress()
+                        elif choice == 6:
+                            common.clear_console()
+                            common.loading_message_with_delay("Logging out, please wait", "blue", 2)
+                            common.clear_console()
+                            result = auth.logout_user()
+                            common.show_message_with_delay(result)
+                            dashboard_menu()
+                        elif choice == 0:
+                            dashboard_menu()
+                        else:
+                            print(common.show_message_with_delay("Invalid input choice. Please enter valid menu number.", "red"))
+                            continue
+
                 elif choice == 2:
                     print("Managing Order...")
                 elif choice == 3:
@@ -84,7 +143,7 @@ def dashboard_menu():
                             elif choice == 0:
                                 dashboard_menu()
                             else:
-                                print(common.color_text("Invalid input choice. Please enter valid menu number.", "red"))
+                                print(common.show_message_with_delay("Invalid input choice. Please enter valid menu number.", "red"))
                                 continue
 
                     else:
