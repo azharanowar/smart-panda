@@ -3,7 +3,7 @@ import utilities.common as common
 import hashlib
 
 class UserAuth:
-    def __init__(self, users_file="users.json", session_file="session.json"):
+    def __init__(self, users_file="data/users.json", session_file="data/session.json"):
         self.users_file = users_file
         self.session_file = session_file
         self.users = self.load_users()

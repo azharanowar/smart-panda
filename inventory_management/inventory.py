@@ -1,23 +1,33 @@
 import json
-import os
 import utilities.common as common
 
 class Inventory:
-    def __init__(self):
+    def __init__(self, products_file="data/products.json"):
+        self.products_file = products_file
         self.products = self.load_products()
 
     def load_products(self):
-        """Load products from the products.json file."""
-        if os.path.exists("products.json"):
-            with open("products.json", "r") as file:
+        """Load products from the specified JSON file."""
+        try:
+            with open(self.products_file, "r") as file:
                 return json.load(file)
-        return []
+        except FileNotFoundError:
+            # Return an empty list if the file doesn't exist
+            return []
+        except json.JSONDecodeError:
+            # Handle corrupted JSON file gracefully
+            print("Error: Products file is corrupted. Starting with an empty inventory.")
+            return []
 
     def save_products(self):
-        """Save the products to the products.json file."""
-        with open("products.json", "w") as file:
-            json.dump(self.products, file, indent=4)
-
+        """Save the products to the specified JSON file."""
+        try:
+            # Ensure the directory structure exists by attempting to write the file
+            with open(self.products_file, "w") as file:
+                json.dump(self.products, file, indent=4)
+        except FileNotFoundError:
+            # Create a new file if it doesn't exist
+            print("Error: Unable to save products. Ensure the directory exists.")
     def add_product(self):
         """Add a new product to the inventory."""
         common.clear_console()
