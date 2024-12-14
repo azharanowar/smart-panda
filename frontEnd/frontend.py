@@ -31,13 +31,13 @@ class Frontend:
             print("Error: Orders file is corrupted. Starting with an empty order list.")
             return []
 
-    def save_orders(self):
-        """Save orders to the orders JSON file."""
+    def save_products(self):
+        """Save the updated product list to the products JSON file."""
         try:
-            with open(self.orders_file, "w") as file:
-                json.dump(self.orders, file, indent=4)
+            with open(self.products_file, "w") as file:
+                json.dump(self.products, file, indent=4)
         except FileNotFoundError:
-            print("Error: Unable to save orders. Ensure the directory exists.")
+            print("Error: Unable to save products. Ensure the directory exists.")
 
     def new_order(self):
         """Create a new order by selecting products and checkout."""
@@ -89,12 +89,13 @@ class Frontend:
             if product:
                 quantity = common.get_valid_number_input(f"Enter quantity for {product['name']}: ")
                 if product['quantity'] >= quantity:
+                    # Add to cart
                     cart.append({"product_id": product['id'], "name": product['name'], "price": product['price'], "quantity": quantity})
-                    print(common.color_text(f"{product['name']} added to cart.", color='green', style='bold'))
+                    print(common.show_message_with_delay(f"{product['name']} added to cart.", color='green', style='bold'))
                 else:
                     print(common.color_text(f"Not enough stock for {product['name']}. Available stock: {product['quantity']}", "red"))
             else:
-                print(common.color_text("Invalid product ID.", "red"))
+                print(common.show_message_with_delay("Invalid product ID.", "red"))
 
         # Checkout
         if cart:
@@ -105,11 +106,11 @@ class Frontend:
 
             payment_method = input("Choose payment method (1. Bank Transfer, 2. Credit Card): ")
             if payment_method == '1':
-                print(common.color_text(f"Payment successful with Bank transfer! Order {order_id} placed.", color='green'))
+                print(common.show_message_with_delay(f"Payment successful with Bank transfer! Order {order_id} placed.", color='green'))
             elif payment_method == '2':
-                print(common.color_text(f"Payment successful with card! Order {order_id} placed.", color='green'))
+                print(common.show_message_with_delay(f"Payment successful with card! Order {order_id} placed.", color='green'))
             else:
-                print(common.color_text("Invalid payment method.", "red"))
+                print(common.show_message_with_delay("Invalid payment method.", "red"))
                 return
 
             order = {
@@ -120,9 +121,16 @@ class Frontend:
                 "status": "Pending"  # Default status is Pending
             }
             self.orders.append(order)
-            self.save_orders()
+
+            # Save the updated product list
+            # Decrease the product quantity in the inventory
+            product['quantity'] -= quantity
+            self.save_products()
+
         else:
-            print(common.color_text("No products selected for the order.", "red"))
+            print(common.show_message_with_delay("No products selected for the order.", "red"))
+
+
 
 
 
