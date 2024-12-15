@@ -50,5 +50,42 @@
         "total_price": 3360.0,
         "payment_method": "Bank Transfer",
         "status": "Completed"
+    },
+    {
+        "order_id": "#SP8069",
+        "username": "nurbek",
+        "cart": [
+            {
+                "product_id": 5,
+                "name": "Bibimbap",
+                "price": 1500.0,
+                "quantity": 5,
+                "extras": [
+                    {
+                        "name": "Egg",
+                        "price": 100
+                    }
+                ]
+            },
+            {
+                "product_id": 1,
+                "name": "Pizza",
+                "price": 1200.0,
+                "quantity": 2,
+                "extras": [
+                    {
+                        "name": "Extra Cheese",
+                        "price": 100
+                    }
+                ]
+            }
+        ],
+        "base_total": 9900.0,
+        "extras_total": 200,
+        "vat": 1515.0,
+        "tax": 505.0,
+        "total_price": 12120.0,
+        "payment_method": "Bank Transfer",
+        "status": "Pending"
     }
 ]

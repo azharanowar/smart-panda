@@ -3,7 +3,7 @@
         "id": 1,
         "name": "Pizza",
         "price": 1200.0,
-        "quantity": 50,
+        "quantity": 48,
         "category": "Lunch",
         "extras": [
             {
@@ -53,7 +53,7 @@
         "id": 5,
         "name": "Bibimbap",
         "price": 1500.0,
-        "quantity": 75,
+        "quantity": 70,
         "category": "Lunch",
         "extras": [
             {

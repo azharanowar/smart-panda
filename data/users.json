@@ -40,7 +40,7 @@
         "full_name": "Shayekh Al Hasan",
         "email": "shayekhthechodu@gmail.com",
         "phone": "01012345543",
-        "address": "Chodu, Busan, South Korea",
+        "address": "Upra Chodu, Busan, South Korea",
         "password": "d36834a6b774d7797809bd30efd840fd46f74760d83b08873a2c032915eb7bb4",
         "role": "customer"
     },
@@ -67,8 +67,26 @@
         "full_name": "Topu Md Saidul Islam",
         "email": "taopusaiful@gmail.com",
         "phone": "0101234321223",
-        "address": "Pukyung National University, Busan",
+        "address": "Tall Chodu, Busan, South Korea",
         "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "role": "customer"
+    },
+    "mashruf": {
+        "username": "mashruf",
+        "full_name": "Mashruf AL Hasan",
+        "email": "mashruf@gmail.com",
+        "phone": "010231234142",
+        "address": "Pukyung National University, Busan, Korea",
+        "password": "19476c6b07890faa8123167cb4c4ff7c11461b6838e14a34664a38fd7540bf1e",
+        "role": "customer"
+    },
+    "rana": {
+        "username": "rana",
+        "full_name": "Rana Almash Uddin",
+        "email": "rana@gamil.com",
+        "phone": "010134242322",
+        "address": "Seoul, Korea",
+        "password": "90c5bc16cb06e34ce74ef5c264f6e0b4bebd6e1c83a3f1b75fe20f0186f99bd7",
         "role": "customer"
     }
 }
