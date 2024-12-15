@@ -46,9 +46,9 @@ class Frontend:
         try:
             with open(self.orders_file, "w") as file:
                 json.dump(self.orders, file, indent=4)
-            print(common.color_text("Your orders placed successfully.", bg_color='blue', style='bold'))
+            print(common.color_text("The Order updated successfully.", bg_color='blue', style='bold'))
         except Exception as e:
-            print(common.color_text("Error placing the order. Please try again.", color='red', style='bold'))
+            print(common.color_text("Error order updating. Please try again.", color='red', style='bold'))
 
 
     def new_order(self):
@@ -220,28 +220,28 @@ class Frontend:
             print(common.color_text("-" * 40, style="dim"))
 
 
-    def cancel_order(self):
-        """Cancel an order by its order ID."""
-        self.view_my_orders()
-        order_id = input("Enter the Order ID to cancel: ").strip()
+    # def cancel_order(self):
+    #     """Cancel an order by its order ID."""
+    #     self.view_my_orders()
+    #     order_id = input("Enter the Order ID to cancel: ").strip()
 
-        user_orders = [order for order in self.orders if order['username'] == self.current_user]
+    #     user_orders = [order for order in self.orders if order['username'] == self.current_user]
 
-        for order in user_orders:
-            if order['order_id'] == order_id:
-                # Restock the products
-                for item in order['cart']:
-                    for product in self.products:
-                        if product['id'] == item['product_id']:
-                            product['quantity'] += item['quantity']
+    #     for order in user_orders:
+    #         if order['order_id'] == order_id:
+    #             # Restock the products
+    #             for item in order['cart']:
+    #                 for product in self.products:
+    #                     if product['id'] == item['product_id']:
+    #                         product['quantity'] += item['quantity']
 
-                self.orders.remove(order)
-                self.save_orders()
-                self.save_products()
-                common.show_message_with_delay(f"Order {order_id} has been canceled.", "green")
-                return
+    #             self.orders.remove(order)
+    #             self.save_orders()
+    #             self.save_products()
+    #             common.show_message_with_delay(f"Order {order_id} has been canceled.", "green")
+    #             return
 
-        common.show_message_with_delay("Order ID not found. Please try again.", "red")
+    #     common.show_message_with_delay("Order ID not found. Please try again.", "red")
 
     def update_order(self):
         """Update an existing order by first canceling it and placing a new one."""
@@ -266,3 +266,98 @@ class Frontend:
                 return
 
         common.show_message_with_delay("Order ID not found. Please try again.", "red")
+
+    def view_all_orders(self):
+        """Admin/Manager/Staff can view all orders with order number and total price."""
+        common.clear_console()
+        common.print_main_header()
+        common.print_sub_header("All Orders")
+
+        if not self.orders:
+            print(common.color_text("No orders found.", color="red"))
+            return
+
+        total_sales = 0
+        for order in self.orders:
+            print(common.color_text(f"Order ID: {order['order_id']}", bg_color="blue", style="bold"))
+            print(f"Order Status: {order['status']}")
+            print(f"Total Price: {common.format_currency(order['total_price'])}")
+            total_sales += order['total_price']
+            print(common.color_text("-" * 40, style="dim"))
+
+        print(common.color_text(f"Total Sales: {common.format_currency(total_sales)}", bg_color="yellow", style="bold"))
+
+    def update_order_status(self):
+        """Admin/Manager/Staff can update the status of an order."""
+        common.clear_console()
+        common.print_main_header()
+        common.print_sub_header("Update Order Status")
+
+        order_id = input("Enter the Order ID to update status: ").strip()
+
+        # Check if the order exists
+        order_found = False
+        for order in self.orders:
+            if order['order_id'] == order_id:
+                order_found = True
+                # Show current status and options to update
+                print(f"Current Status: {order['status']}")
+                print("Select new status:")
+                print("1. Pending")
+                print("2. Completed")
+                print("3. Cancelled")
+                new_status_choice = common.get_valid_number_input("Enter your choice (1/2/3): ")
+
+                if new_status_choice == 1:
+                    order['status'] = "Pending"
+                elif new_status_choice == 2:
+                    order['status'] = "Completed"
+                elif new_status_choice == 3:
+                    order['status'] = "Cancelled"
+                else:
+                    common.show_message_with_delay("Invalid choice. Please try again.", "red")
+                    return
+
+                self.save_orders()
+                common.show_message_with_delay(f"Order {order_id} status updated to {order['status']}.", "green")
+                break
+
+        if not order_found:
+            common.show_message_with_delay("Order ID not found. Please try again.", "red")
+
+    def cancel_order(self):
+        """Cancel an order by its order ID (Admin/Manager/Staff can cancel any order, user can cancel only their own)."""
+        common.clear_console()
+        common.print_main_header()
+        common.print_sub_header("Cancel Order")
+
+        order_id = input("Enter the Order ID to cancel: ").strip()
+
+        # Check if the order exists
+        order_found = False
+        for order in self.orders:
+            if order['order_id'] == order_id:
+                order_found = True
+                # Check if the user is allowed to cancel
+                if self.current_user == order['username'] or user_auth_management.UserAuth().session.get("role") in ['admin', 'manager', 'staff']:
+                    # Restock the products
+                    for item in order['cart']:
+                        for product in self.products:
+                            if product['id'] == item['product_id']:
+                                product['quantity'] += item['quantity']
+
+                    self.orders.remove(order)
+                    self.save_orders()
+                    self.save_products()
+                    common.show_message_with_delay(f"Order {order_id} has been canceled.", "green")
+                else:
+                    common.show_message_with_delay("You are not authorized to cancel this order.", "red")
+                break
+
+        if not order_found:
+            common.show_message_with_delay("Order ID not found. Please try again.", "red")
+
+
+
+
+    

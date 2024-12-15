@@ -20,7 +20,7 @@
         "id": 2,
         "name": "Burger",
         "price": 800.0,
-        "quantity": 100,
+        "quantity": 98,
         "category": "Snacks",
         "extras": [
             {
@@ -37,7 +37,7 @@
         "id": 3,
         "name": "Cola",
         "price": 100.0,
-        "quantity": 200,
+        "quantity": 205,
         "category": "Beverages",
         "extras": []
     },
@@ -117,8 +117,8 @@
         "id": 9,
         "name": "Kimbap",
         "price": 700.0,
-        "quantity": 120,
-        "category": "Snack",
+        "quantity": 116,
+        "category": "Snacks",
         "extras": []
     },
     {
@@ -137,5 +137,13 @@
                 "price": 20
             }
         ]
+    },
+    {
+        "id": 11,
+        "name": "Ice Cream",
+        "price": 1000,
+        "quantity": 100,
+        "category": "Desserts",
+        "extras": []
     }
 ]

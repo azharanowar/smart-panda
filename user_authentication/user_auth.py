@@ -291,12 +291,14 @@ class UserAuth:
         if not self.has_role("admin"):
             return common.color_text("Permission denied. Only admins can view workers.", color="red", style="bold")
 
-        workers = [
-            user for user in self.users.values() if user["role"] in ["manager", "staff"]
-        ]
+        workers = []
+        for user in self.users.values():
+            if user["role"] in ['admin', 'manager', 'staff']:
+                workers.append(user)
+
 
         if not workers:
-            return common.color_text("No workers (managers or staff) found in the system.", color="yellow", style="italic")
+            return common.color_text("No workers (admin, managers or staff) found in the system.", color="yellow", style="italic")
 
         username_width = 20
         full_name_width = 25

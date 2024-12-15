@@ -1,49 +1,54 @@
 [
     {
-        "order_id": "#SP7804",
-        "username": "alrafi",
+        "order_id": "#SP7509",
+        "username": "nurbek",
         "cart": [
             {
-                "product_id": 1,
-                "name": "BURGET",
-                "price": 11.0,
-                "quantity": 1,
-                "extras": []
+                "product_id": 2,
+                "name": "Burger",
+                "price": 800.0,
+                "quantity": 2,
+                "extras": [
+                    {
+                        "name": "Cheese",
+                        "price": 50
+                    }
+                ]
             },
             {
-                "product_id": 5,
-                "name": "Pizza",
-                "price": 100.0,
-                "quantity": 1,
+                "product_id": 7,
+                "name": "Tteokbokki",
+                "price": 1200.0,
+                "quantity": 2,
                 "extras": []
             }
         ],
-        "base_total": 111.0,
-        "extras_total": 0,
-        "vat": 16.65,
-        "tax": 5.550000000000001,
-        "total_price": 133.20000000000002,
+        "base_total": 4000.0,
+        "extras_total": 50,
+        "vat": 607.5,
+        "tax": 202.5,
+        "total_price": 4860.0,
         "payment_method": "Credit Card",
         "status": "Pending"
     },
     {
-        "order_id": "#SP4548",
-        "username": "alrafi",
+        "order_id": "#SP1408",
+        "username": "topu",
         "cart": [
             {
-                "product_id": 3,
-                "name": "asd",
-                "price": 23,
-                "quantity": 5,
+                "product_id": 9,
+                "name": "Kimbap",
+                "price": 700.0,
+                "quantity": 4,
                 "extras": []
             }
         ],
-        "base_total": 115,
+        "base_total": 2800.0,
         "extras_total": 0,
-        "vat": 17.25,
-        "tax": 5.75,
-        "total_price": 138.0,
-        "payment_method": "Credit Card",
-        "status": "Pending"
+        "vat": 420.0,
+        "tax": 140.0,
+        "total_price": 3360.0,
+        "payment_method": "Bank Transfer",
+        "status": "Completed"
     }
 ]

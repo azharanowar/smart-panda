@@ -86,11 +86,13 @@ def dashboard_menu():
                             continue
 
                 elif choice == 2:
+                    common.clear_console()
+                    common.loading_message_with_delay("Workers order management system is loading, please wait", 'green', 2)
                     frontend = frontend_management.Frontend()
                     while True:
                         common.clear_console()
                         common.print_main_header()
-                        common.print_sub_header("Order Management System")
+                        common.print_sub_header("Order Management System Backend")
                         print("1. View All Orders")
                         print("2. Update Order Status")
                         print("3. Cancel Order")
@@ -99,20 +101,15 @@ def dashboard_menu():
 
                         choice = common.get_valid_number_input("Choose an option: ")
                         if choice == 1:
-                            frontend.new_order()
+                            frontend.view_all_orders()
+                            common.wait_for_keypress()
                         elif choice == 2:
-                            result = frontend.view_my_orders()
-                            print(result)
+                            frontend.update_order_status()
                             common.wait_for_keypress()
                         elif choice == 3:
-                            result = frontend.update_order()
-                            print(result)
+                            frontend.cancel_order()
                             common.wait_for_keypress()
                         elif choice == 4:
-                            result = frontend.cancel_order()
-                            print(result)
-                            common.wait_for_keypress()
-                        elif choice == 5:
                             common.clear_console()
                             common.loading_message_with_delay("Logging out, please wait", "blue", 2)
                             common.clear_console()
@@ -122,7 +119,7 @@ def dashboard_menu():
                         elif choice == 0:
                             dashboard_menu()
                         else:
-                            print(common.show_message_with_delay("Invalid input choice. Please enter valid menu number.", "red"))
+                            common.show_message_with_delay("Invalid input choice. Please enter valid menu number.", "red")
                             continue
                 elif choice == 3:
                     if auth.session["role"] == "admin":
@@ -196,20 +193,16 @@ def dashboard_menu():
                     continue
         else:
             # Customer Dashboard
-            common.clear_console()
-            common.print_main_header()  # Fixed main header
-            common.print_sub_header(f"Customer Dashboard")
-            frontend = frontend_management.Frontend()
             while True:
                 common.clear_console()
-                common.print_main_header()
-                common.print_sub_header("Order Management System")
+                common.print_main_header()  # Fixed main header
+                common.print_sub_header(f"Customer Dashboard")
+                frontend = frontend_management.Frontend()
                 print("1. New Order")
                 print("2. View My Orders")
                 print("3. Update Order")
                 print("4. Cancel Order")
                 print("5. Logout")
-                print("0. Back to Main Menu")
 
                 choice = common.get_valid_number_input("Choose an option: ")
                 if choice == 1:
@@ -232,8 +225,6 @@ def dashboard_menu():
                     common.clear_console()
                     result = auth.logout_user()
                     common.show_message_with_delay(result)
-                    dashboard_menu()
-                elif choice == 0:
                     dashboard_menu()
                 else:
                     print(common.show_message_with_delay("Invalid input choice. Please enter valid menu number.", "red"))
