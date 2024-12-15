@@ -132,14 +132,6 @@ def get_valid_number_input(prompt):
 # age = get_valid_number_input("Enter your age: ")
 # print(f"Hello {name}, your age is {age}.")
 
-# Formatting Numbers (Currency)
-def format_currency(amount):
-    return f"₩{amount:,.2f}"
-
-# Clear Console
-def clear_console():
-    os.system("cls" if os.name == "nt" else "clear")
-
 # Function for main header
 def print_main_header():
     
@@ -154,6 +146,31 @@ def print_sub_header(sub_title):
     print(color_text("-" * 50, style="dim", bg_color=""))
     print(color_text(sub_title.center(50), bg_color="white"))
     print(color_text("-" * 50, style="dim", bg_color=""))
+
+# Formatting Numbers (Currency)
+def format_currency(amount):
+    return f"₩{amount:,.2f}"
+
+def calculate_vat_and_tax(amount, vat_rate=0.15, tax_rate=0.05):
+    """
+    Calculate VAT and tax for a given amount.
+
+    Parameters:
+    - amount (float): The base amount to calculate VAT and tax on.
+    - vat_rate (float): The VAT rate as a decimal (default is 15%).
+    - tax_rate (float): The tax rate as a decimal (default is 5%).
+
+    Returns:
+    - dict: A dictionary containing VAT, tax, and the total amount.
+    """
+    vat = amount * vat_rate
+    tax = amount * tax_rate
+    total = amount + vat + tax
+    return {"vat": vat, "tax": tax, "total": total}
+
+# Clear Console
+def clear_console():
+    os.system("cls" if os.name == "nt" else "clear")
 
 # Show Message with Delay
 def show_message_with_delay(message, color="white", delay=2):

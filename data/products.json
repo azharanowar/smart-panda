@@ -1,68 +1,140 @@
 [
     {
         "id": 1,
-        "name": "BURGET",
-        "price": 11.0,
-        "quantity": 18,
+        "name": "Pizza",
+        "price": 1200.0,
+        "quantity": 50,
         "category": "Lunch",
-        "extras": []
+        "extras": [
+            {
+                "name": "Extra Cheese",
+                "price": 100
+            },
+            {
+                "name": "Pepperoni",
+                "price": 150
+            }
+        ]
     },
     {
         "id": 2,
-        "name": "312",
-        "price": 222,
-        "quantity": 22,
-        "category": "Lunch",
-        "extras": []
+        "name": "Burger",
+        "price": 800.0,
+        "quantity": 100,
+        "category": "Snacks",
+        "extras": [
+            {
+                "name": "Cheese",
+                "price": 50
+            },
+            {
+                "name": "Bacon",
+                "price": 80
+            }
+        ]
     },
     {
         "id": 3,
-        "name": "asd",
-        "price": 23,
-        "quantity": 321,
-        "category": "Desserts",
-        "extras": [
-            {
-                "name": "Salad",
-                "price": 12
-            },
-            {
-                "name": "Tomato",
-                "price": 12
-            }
-        ]
-    },
-    {
-        "id": 5,
-        "name": "Pizza",
+        "name": "Cola",
         "price": 100.0,
-        "quantity": 50,
-        "category": "Lunch",
-        "extras": [
-            {
-                "name": "aa",
-                "price": 33
-            }
-        ]
-    },
-    {
-        "id": 6,
-        "name": "ew",
-        "price": 32,
-        "quantity": 32,
-        "category": "Lunch",
+        "quantity": 200,
+        "category": "Beverages",
         "extras": []
     },
     {
+        "id": 4,
+        "name": "Kimchi",
+        "price": 500.0,
+        "quantity": 100,
+        "category": "Snacks",
+        "extras": []
+    },
+    {
+        "id": 5,
+        "name": "Bibimbap",
+        "price": 1500.0,
+        "quantity": 75,
+        "category": "Lunch",
+        "extras": [
+            {
+                "name": "Egg",
+                "price": 100
+            },
+            {
+                "name": "Rice",
+                "price": 200
+            }
+        ]
+    },
+    {
         "id": 6,
-        "name": "Teokbokki",
-        "price": 100,
-        "quantity": 50,
+        "name": "Bulgogi",
+        "price": 2500.0,
+        "quantity": 60,
         "category": "Dinner",
         "extras": [
             {
-                "name": "rice",
-                "price": 10
+                "name": "Rice",
+                "price": 200
+            },
+            {
+                "name": "Kimchi",
+                "price": 50
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Tteokbokki",
+        "price": 1200.0,
+        "quantity": 150,
+        "category": "Snacks",
+        "extras": [
+            {
+                "name": "Cheese",
+                "price": 150
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Ramen",
+        "price": 1000.0,
+        "quantity": 80,
+        "category": "Dinner",
+        "extras": [
+            {
+                "name": "Egg",
+                "price": 100
+            },
+            {
+                "name": "Seaweed",
+                "price": 50
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Kimbap",
+        "price": 700.0,
+        "quantity": 120,
+        "category": "Snack",
+        "extras": []
+    },
+    {
+        "id": 10,
+        "name": "Samojeong Samgethang",
+        "price": 3000.0,
+        "quantity": 30,
+        "category": "Dinner",
+        "extras": [
+            {
+                "name": "Kimchi",
+                "price": 50
+            },
+            {
+                "name": "Garlic",
+                "price": 20
             }
         ]
     }
