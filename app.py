@@ -6,10 +6,11 @@ import frontEnd.frontend as frontend_management
 auth = user_auth.UserAuth()
 def dashboard_menu():
     """Show options based on user role."""
-    common.clear_console()
 
+    common.clear_console()
     common.print_main_header()  # Fixed main header for all the time
     if auth.is_logged_in():
+
         # Display loading animation before final content
         common.loading_message_with_delay("Loading your dashboard", 'green', 2)
         common.clear_console()
@@ -202,7 +203,8 @@ def dashboard_menu():
                 print("2. View My Orders")
                 print("3. Update Order")
                 print("4. Cancel Order")
-                print("5. Logout")
+                print("5. Panda Assistant (Voice Assistance)")
+                print("6. Logout")
 
                 choice = common.get_valid_number_input("Choose an option: ")
                 if choice == 1:
@@ -220,6 +222,10 @@ def dashboard_menu():
                     print(result)
                     common.wait_for_keypress()
                 elif choice == 5:
+                    import voice_ordering.panda_assistant as panda_assistant
+                    panda = panda_assistant.PandaAssistant()
+                    panda.starting()
+                elif choice == 6:
                     common.clear_console()
                     common.loading_message_with_delay("Logging out, please wait", "blue", 2)
                     common.clear_console()

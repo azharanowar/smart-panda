@@ -39,7 +39,14 @@ class Inventory:
 
         # Get valid price and quantity
         price = common.get_valid_number_input("Enter product price: ")
+        if price == 0:
+            print(common.color_text("Price can't be zero", color='red'))
+            price = common.get_valid_number_input("Enter product price: ")
+
         quantity = common.get_valid_number_input("Enter product quantity: ")
+        if quantity == 0:
+            print(common.color_text("Price can't be zero", color='red'))
+            quantity = common.get_valid_number_input("Enter product quantity: ")
 
         # Category selection with validation
         categories = ["Snacks", "Lunch", "Dinner", "Drinks", "Desserts"]

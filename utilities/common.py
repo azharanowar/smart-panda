@@ -3,6 +3,44 @@ import re
 import time
 import sys
 
+
+# Function for main header
+def print_main_header():
+    
+    header_text = "SmartPanda Dashboard"
+
+    print(color_text("=" * 50, color="white", style="dim", bg_color="blue"))
+    print(color_text(header_text.center(50), color="white", bg_color="blue"))
+    print(color_text("=" * 50, color="white", style="dim", bg_color="blue"))
+
+# Function for sub header
+def print_sub_header(sub_title):
+    print(color_text("-" * 50, style="dim", bg_color=""))
+    print(color_text(sub_title.center(50), bg_color="white"))
+    print(color_text("-" * 50, style="dim", bg_color=""))
+
+# Formatting Numbers (Currency)
+def format_currency(amount):
+    return f"₩{amount:,.2f}"
+
+def calculate_vat_and_tax(amount, vat_rate=0.15, tax_rate=0.05):
+    """
+    Calculate VAT and tax for a given amount.
+
+    Parameters:
+    - amount (float): The base amount to calculate VAT and tax on.
+    - vat_rate (float): The VAT rate as a decimal (default is 15%).
+    - tax_rate (float): The tax rate as a decimal (default is 5%).
+
+    Returns:
+    - dict: A dictionary containing VAT, tax, and the total amount.
+    """
+    vat = amount * vat_rate
+    tax = amount * tax_rate
+    total = amount + vat + tax
+    return {"vat": vat, "tax": tax, "total": total}
+
+
 def color_text(text, color=None, style=None, bg_color=None):
     # ANSI escape codes for colors
     colors = {
@@ -73,33 +111,6 @@ def color_text(text, color=None, style=None, bg_color=None):
 # print(color_text("This is strikethrough text on a black background", style="strikethrough", bg_color="black"))
 # print(color_text("This is normal text"))
 
-def loading_message_with_delay(message, color="white", delay=2):
-    """Display a loading message with an animated dot sequence and a delay, ensuring each dot has the same color."""
-    # ANSI codes for different colors
-    color_codes = {
-        "black": 30, "red": 31, "green": 32, "yellow": 33,
-        "blue": 34, "magenta": 35, "cyan": 36, "white": 37,
-    }
-
-    # Set the color code
-    color_code = color_codes.get(color, 37)  # Default to white if color is not recognized
-
-    # Print the message with color
-    sys.stdout.write(f"\033[{color_code}m{message}\033[0m")
-    sys.stdout.flush()  # Flush the output buffer to immediately display the message
-    
-    # Animate dots with the same color until the delay time is over
-    start_time = time.time()
-    while time.time() - start_time < delay:
-        sys.stdout.write(f"\033[{color_code}m.\033[0m")  # Color the dot the same as the message
-        sys.stdout.flush()  # Ensure the dot is immediately displayed
-        time.sleep(0.5)  # Add a 0.5 second delay between each dot
-    
-    # Move to the next line after the loading animation
-    sys.stdout.write("\n")
-    sys.stdout.flush()
-
-
 
 # Input Validation
 def get_valid_input(prompt, valid_options=None):
@@ -132,42 +143,6 @@ def get_valid_number_input(prompt):
 # age = get_valid_number_input("Enter your age: ")
 # print(f"Hello {name}, your age is {age}.")
 
-# Function for main header
-def print_main_header():
-    
-    header_text = "SmartPanda Dashboard"
-
-    print(color_text("=" * 50, color="white", style="dim", bg_color="blue"))
-    print(color_text(header_text.center(50), color="white", bg_color="blue"))
-    print(color_text("=" * 50, color="white", style="dim", bg_color="blue"))
-
-# Function for sub header
-def print_sub_header(sub_title):
-    print(color_text("-" * 50, style="dim", bg_color=""))
-    print(color_text(sub_title.center(50), bg_color="white"))
-    print(color_text("-" * 50, style="dim", bg_color=""))
-
-# Formatting Numbers (Currency)
-def format_currency(amount):
-    return f"₩{amount:,.2f}"
-
-def calculate_vat_and_tax(amount, vat_rate=0.15, tax_rate=0.05):
-    """
-    Calculate VAT and tax for a given amount.
-
-    Parameters:
-    - amount (float): The base amount to calculate VAT and tax on.
-    - vat_rate (float): The VAT rate as a decimal (default is 15%).
-    - tax_rate (float): The tax rate as a decimal (default is 5%).
-
-    Returns:
-    - dict: A dictionary containing VAT, tax, and the total amount.
-    """
-    vat = amount * vat_rate
-    tax = amount * tax_rate
-    total = amount + vat + tax
-    return {"vat": vat, "tax": tax, "total": total}
-
 # Clear Console
 def clear_console():
     os.system("cls" if os.name == "nt" else "clear")
@@ -176,6 +151,33 @@ def clear_console():
 def show_message_with_delay(message, color="white", delay=2):
     print(color_text(message, color))
     time.sleep(delay)
+
+def loading_message_with_delay(message, color="white", delay=2):
+    """Display a loading message with an animated dot sequence and a delay, ensuring each dot has the same color."""
+    # ANSI codes for different colors
+    color_codes = {
+        "black": 30, "red": 31, "green": 32, "yellow": 33,
+        "blue": 34, "magenta": 35, "cyan": 36, "white": 37,
+    }
+
+    # Set the color code
+    color_code = color_codes.get(color, 37)  # Default to white if color is not recognized
+
+    # Print the message with color
+    sys.stdout.write(f"\033[{color_code}m{message}\033[0m")
+    sys.stdout.flush()  # Flush the output buffer to immediately display the message
+    
+    # Animate dots with the same color until the delay time is over
+    start_time = time.time()
+    while time.time() - start_time < delay:
+        sys.stdout.write(f"\033[{color_code}m.\033[0m")  # Color the dot the same as the message
+        sys.stdout.flush()  # Ensure the dot is immediately displayed
+        time.sleep(0.5)  # Add a 0.5 second delay between each dot
+    
+    # Move to the next line after the loading animation
+    sys.stdout.write("\n")
+    sys.stdout.flush()
+
 
 def wait_for_keypress():
     """Wait for the user to press Enter."""

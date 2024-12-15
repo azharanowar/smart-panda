@@ -100,6 +100,9 @@ class Frontend:
 
             if product:
                 quantity = common.get_valid_number_input(f"Enter quantity for {product['name']}: ")
+                if quantity <= 0:
+                    print(common.color_text("Quantity must be positive value", color='red'))
+                    quantity = common.get_valid_number_input(f"Enter quantity for {product['name']}: ")
                 if product['quantity'] >= quantity:
                     # Add extras
                     extras = []
@@ -219,29 +222,6 @@ class Frontend:
             print(f"Status: {order['status']}")
             print(common.color_text("-" * 40, style="dim"))
 
-
-    # def cancel_order(self):
-    #     """Cancel an order by its order ID."""
-    #     self.view_my_orders()
-    #     order_id = input("Enter the Order ID to cancel: ").strip()
-
-    #     user_orders = [order for order in self.orders if order['username'] == self.current_user]
-
-    #     for order in user_orders:
-    #         if order['order_id'] == order_id:
-    #             # Restock the products
-    #             for item in order['cart']:
-    #                 for product in self.products:
-    #                     if product['id'] == item['product_id']:
-    #                         product['quantity'] += item['quantity']
-
-    #             self.orders.remove(order)
-    #             self.save_orders()
-    #             self.save_products()
-    #             common.show_message_with_delay(f"Order {order_id} has been canceled.", "green")
-    #             return
-
-    #     common.show_message_with_delay("Order ID not found. Please try again.", "red")
 
     def update_order(self):
         """Update an existing order by first canceling it and placing a new one."""

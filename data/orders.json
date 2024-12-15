@@ -29,7 +29,7 @@
         "tax": 202.5,
         "total_price": 4860.0,
         "payment_method": "Credit Card",
-        "status": "Pending"
+        "status": "Completed"
     },
     {
         "order_id": "#SP1408",
